@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>BOT AMIGO GREENS - Gestor de Banca Pro</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#a3ff12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{font-family:'Inter',system-ui,sans-serif}
+  body{background:#0a0a0a}
+  ::-webkit-scrollbar{display:none}
+</style>
+</head>
+<body class="bg-[#0a0a0a] text-white min-h-screen">
+<div class="max-w-[480px] mx-auto">
+  <!-- HEADER ORIGINAL -->
+  <header class="flex items-center gap-3 px-5 py-5 border-b border-[#262626] sticky top-0 bg-[#0a0a0a]/95 backdrop-blur z-10">
+    <div class="w-11 h-11 rounded-xl bg-[#161616] border border-[#262626] flex items-center justify-center shadow-[0_0_20px_rgba(163,255,18,0.25)]">
+      <span class="text-[22px] drop-shadow-[0_0_8px_#a3ff12]">🤖</span>
+    </div>
+    <div class="leading-[1.1]">
+      <h1 class="font-black text-[16px] tracking-tight">BOT AMIGO <span class="text-[#a3ff12]">GREENS</span></h1>
+      <p class="text-[10px] tracking-[0.22em] text-zinc-400 font-bold mt-0.5">GESTOR DE BANCA PRO</p>
+    </div>
+    <div class="ml-auto flex items-center gap-1.5">
+      <div class="w-2 h-2 rounded-full bg-[#a3ff12] animate-pulse shadow-[0_0_8px_#a3ff12]"></div>
+      <span class="text-[10px] text-zinc-500 font-bold">LIVE</span>
+    </div>
+  </header>
+
+  <main class="p-4 space-y-4">
+    <!-- BANCA ATUAL CARD -->
+    <div class="bg-[#161616] border border-[#262626] rounded-[24px] p-5 relative overflow-hidden">
+      <div class="absolute -top-20 -right-20 w-48 h-48 bg-[#a3ff12] opacity-[0.06] blur-[40px] rounded-full"></div>
+      <div class="flex justify-between items-start">
+        <div>
+          <p class="text-[11px] tracking-[0.18em] text-zinc-500 font-bold">BANCA ATUAL</p>
+          <h2 id="bancaVal" class="text-[40px] font-black tracking-tighter leading-none mt-1">€100.00</h2>
+          <div class="flex gap-3 mt-3">
+            <div class="bg-[#0a0a0a] border border-[#262626] rounded-full px-3 py-1 flex items-center gap-1.5">
+              <span class="text-[10px] text-zinc-500 font-bold">LUCRO</span>
+              <span id="lucroVal" class="text-[12px] font-bold text-[#a3ff12]">+€0.00</span>
+            </div>
+            <div class="bg-[#0a0a0a] border border-[#262626] rounded-full px-3 py-1 flex items-center gap-1.5">
+              <span class="text-[10px] text-zinc-500 font-bold">ROI</span>
+              <span id="roiVal" class="text-[12px] font-bold text-white">0.0%</span>
+            </div>
+          </div>
+        </div>
+        <div class="w-10 h-10 rounded-full bg-[#0a0a0a] border border-[#262626] flex items-center justify-center">
+          <span class="text-[#a3ff12] text-lg">↗</span>
+        </div>
+      </div>
+      <div class="mt-5">
+        <div class="flex justify-between text-[10px] font-bold tracking-widest text-zinc-500 mb-2">
+          <span>EVOLUÇÃO</span>
+          <span id="progLabel">50%</span>
+        </div>
+        <div class="h-2 w-full bg-[#0a0a0a] rounded-full border border-[#262626] overflow-hidden p-0.5">
+          <div id="progBar" class="h-full bg-[#a3ff12] rounded-full transition-all duration-700 shadow-[0_0_12px_#a3ff12]" style="width:35%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRID 3 -->
+    <div class="grid grid-cols-3 gap-3">
+      <div class="bg-[#161616] border border-[#262626] rounded-[20px] p-4 text-center">
+        <p class="text-[10px] tracking-widest text-zinc-500 font-bold">APOSTAS</p>
+        <p id="statApostas" class="text-[22px] font-black mt-1">0</p>
+      </div>
+      <div class="bg-[#161616] border border-[#262626] rounded-[20px] p-4 text-center">
+        <p class="text-[10px] tracking-widest text-zinc-500 font-bold">GREENS</p>
+        <p id="statGreens" class="text-[22px] font-black mt-1 text-[#a3ff12]">0</p>
+      </div>
+      <div class="bg-[#161616] border border-[#262626] rounded-[20px] p-4 text-center">
+        <p class="text-[10px] tracking-widest text-zinc-500 font-bold">TAXA</p>
+        <p id="statTaxa" class="text-[22px] font-black mt-1">0%</p>
+      </div>
+    </div>
+
+    <!-- NOVA APOSTA -->
+    <div class="bg-[#161616] border border-[#262626] rounded-[24px] p-5">
+      <div class="flex items-center gap-2 mb-4">
+        <div class="w-6 h-6 rounded-full bg-[#a3ff12] text-black flex items-center justify-center font-black text-[12px]">+</div>
+        <h3 class="font-black text-[14px] tracking-wide">NOVA APOSTA</h3>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="text-[10px] font-bold tracking-widest text-zinc-500">STAKE (€)</label>
+          <input id="stakeInput" type="number" inputmode="decimal" value="10" class="mt-1.5 w-full bg-[#0a0a0a] border border-[#262626] rounded-xl px-3.5 py-3 text-[15px] font-bold outline-none focus:border-[#a3ff12] transition">
+        </div>
+        <div>
+          <label class="text-[10px] font-bold tracking-widest text-zinc-500">ODD</label>
+          <input id="oddInput" type="number" inputmode="decimal" step="0.01" value="1.85" class="mt-1.5 w-full bg-[#0a0a0a] border border-[#262626] rounded-xl px-3.5 py-3 text-[15px] font-bold outline-none focus:border-[#a3ff12] transition">
+        </div>
+      </div>
+      <div class="mt-3">
+        <label class="text-[10px] font-bold tracking-widest text-zinc-500">JOGO / MERCADO</label>
+        <input id="jogoInput" type="text" placeholder="Ex: Benfica x Porto - Over 1.5" class="mt-1.5 w-full bg-[#0a0a0a] border border-[#262626] rounded-xl px-3.5 py-3 text-[14px] font-semibold outline-none focus:border-[#a3ff12] transition placeholder:text-zinc-600">
+      </div>
+      <div class="grid grid-cols-2 gap-3 mt-4">
+        <button onclick="addBet('green')" class="h-[52px] rounded-xl bg-[#a3ff12] text-black font-black text-[14px] tracking-widest shadow-[0_0_24px_rgba(163,255,18,0.35)] active:scale-[0.98] transition">GREEN</button>
+        <button onclick="addBet('red')" class="h-[52px] rounded-xl bg-[#ff3b30] text-white font-black text-[14px] tracking-widest active:scale-[0.98] transition">RED</button>
+      </div>
+    </div>
+
+    <!-- HISTORICO -->
+    <div class="bg-[#161616] border border-[#262626] rounded-[24px] p-5">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="font-black text-[13px] tracking-wide">HISTÓRICO</h3>
+        <button onclick="clearAll()" class="text-[10px] font-bold tracking-widest text-zinc-500 hover:text-white">LIMPAR</button>
+      </div>
+      <div id="historicoList" class="space-y-2.5 max-h-[360px] overflow-auto pr-1"></div>
+      <div id="emptyState" class="py-10 text-center">
+        <p class="text-zinc-600 text-[13px] font-semibold">Nenhuma aposta ainda</p>
+        <p class="text-zinc-700 text-[11px] mt-1">Adiciona a tua primeira aposta acima</p>
+      </div>
+    </div>
+
+    <!-- SOBRE -->
+    <div class="bg-[#161616] border border-[#262626] rounded-[24px] p-6">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-[#a3ff12]">🤖</span>
+        <h3 class="font-black text-[13px] tracking-wide">SOBRE O BOT AMIGO</h3>
+      </div>
+      <p class="text-[13px] leading-[1.6] text-zinc-300 font-medium">O <span class="text-white font-bold">BOT AMIGO GREENS</span> nasceu para ajudar apostadores a gerirem a banca de forma profissional, com controlo, disciplina e gestão de risco.</p>
+      <div class="mt-4 flex gap-2">
+        <div class="h-1 w-8 bg-[#a3ff12] rounded-full"></div>
+        <div class="h-1 w-4 bg-[#262626] rounded-full"></div>
+        <div class="h-1 w-4 bg-[#262626] rounded-full"></div>
+      </div>
+    </div>
+
+    <!-- COMUNIDADE -->
+    <div class="bg-[#161616] border border-[#262626] rounded-[24px] p-6">
+      <h3 class="font-black text-[13px] tracking-wide mb-1">JUNTA-TE À COMUNIDADE</h3>
+      <p class="text-[11px] text-zinc-500 font-bold tracking-widest mb-4">SEGUE E ENTRA NO GRUPO VIP</p>
+      <div class="space-y-2.5">
+        <a href="https://t.me/botamigogreens" target="_blank" class="flex items-center gap-3 bg-[#0a0a0a] border border-[#262626] hover:border-[#a3ff12]/50 rounded-xl px-4 py-3.5 transition group">
+          <div class="w-9 h-9 rounded-full bg-[#229ED9] flex items-center justify-center text-white font-black text-[14px]">T</div>
+          <div class="flex-1">
+            <p class="font-bold text-[13px]">Telegram Oficial</p>
+            <p class="text-[11px] text-zinc-500">@botamigogreens</p>
+          </div>
+          <span class="text-zinc-600 group-hover:text-[#a3ff12]">↗</span>
+        </a>
+        <a href="https://instagram.com/botamigogreens" target="_blank" class="flex items-center gap-3 bg-[#0a0a0a] border border-[#262626] hover:border-[#a3ff12]/50 rounded-xl px-4 py-3.5 transition group">
+          <div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#feda75] via-[#d62976] to-[#4f5bd5] flex items-center justify-center text-white font-black text-[12px]">IG</div>
+          <div class="flex-1">
+            <p class="font-bold text-[13px]">Instagram Bot</p>
+            <p class="text-[11px] text-zinc-500">@botamigogreens</p>
+          </div>
+          <span class="text-zinc-600 group-hover:text-[#a3ff12]">↗</span>
+        </a>
+        <a href="https://instagram.com/rubenojesus" target="_blank" class="flex items-center gap-3 bg-[#0a0a0a] border border-[#262626] hover:border-[#a3ff12]/50 rounded-xl px-4 py-3.5 transition group">
+          <div class="w-9 h-9 rounded-full bg-[#161616] border border-[#262626] flex items-center justify-center text-white font-black text-[12px]">RJ</div>
+          <div class="flex-1">
+            <p class="font-bold text-[13px]">Ruben Jesus</p>
+            <p class="text-[11px] text-zinc-500">@rubenojesus</p>
+          </div>
+          <span class="text-zinc-600 group-hover:text-[#a3ff12]">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <footer class="py-8 text-center">
+      <p class="text-[10px] tracking-[0.2em] font-bold text-zinc-600">BOT AMIGO GREENS © 2025 • GESTOR DE BANCA PRO</p>
+      <p class="text-[10px] text-zinc-700 mt-1.5">Feito com 💚 para apostadores disciplinados</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+let bets = JSON.parse(localStorage.getItem('botamigo-bets')||'[]');
+const bancaInicial = 100;
+
+function save(){ localStorage.setItem('botamigo-bets', JSON.stringify(bets)); }
+
+function render(){
+  const totalStaked = bets.reduce((s,b)=>s+b.stake,0);
+  const totalProfit = bets.reduce((s,b)=>s+b.profit,0);
+  const bancaAtual = bancaInicial + totalProfit;
+  const greens = bets.filter(b=>b.result==='green').length;
+  const taxa = bets.length ? (greens/bets.length)*100 : 0;
+  const roi = totalStaked ? (totalProfit/totalStaked)*100 : 0;
+
+  document.getElementById('bancaVal').textContent = '€'+bancaAtual.toFixed(2);
+  document.getElementById('lucroVal').textContent = (totalProfit>=0?'+':'')+'€'+totalProfit.toFixed(2);
+  document.getElementById('lucroVal').className = 'text-[12px] font-bold '+(totalProfit>=0?'text-[#a3ff12]':'text-[#ff3b30]');
+  document.getElementById('roiVal').textContent = roi.toFixed(1)+'%';
+  document.getElementById('statApostas').textContent = bets.length;
+  document.getElementById('statGreens').textContent = greens;
+  document.getElementById('statTaxa').textContent = (bets.length?taxa.toFixed(0):'0')+'%';
+  document.getElementById('progBar').style.width = Math.min(100, Math.max(8, ((bancaAtual-50)/150)*100))+'%';
+  document.getElementById('progLabel').textContent = Math.round(((bancaAtual-50)/150)*100)+'%';
+
+  const list = document.getElementById('historicoList');
+  const empty = document.getElementById('emptyState');
+  if(!bets.length){ list.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+  list.innerHTML = bets.map(b=>`
+    <div class="flex items-center gap-3 bg-[#0a0a0a] border border-[#262626] rounded-xl px-3.5 py-3">
+      <div class="w-2 h-2 rounded-full ${b.result==='green'?'bg-[#a3ff12] shadow-[0_0_8px_#a3ff12]':'bg-[#ff3b30]'}"></div>
+      <div class="flex-1 min-w-0">
+        <p class="text-[12px] font-bold truncate">${b.jogo}</p>
+        <p class="text-[10px] text-zinc-500 font-bold mt-0.5">${b.stake}€ @ ${b.odd} • ${b.date}</p>
+      </div>
+      <div class="text-right">
+        <p class="text-[12px] font-black ${b.result==='green'?'text-[#a3ff12]':'text-[#ff3b30]'}">${b.profit>=0?'+':''}€${b.profit.toFixed(2)}</p>
+        <p class="text-[10px] font-bold tracking-widest ${b.result==='green'?'text-[#a3ff12]/70':'text-[#ff3b30]/70'}">${b.result.toUpperCase()}</p>
+      </div>
+    </div>`).join('');
+}
+
+function addBet(result){
+  const stake = parseFloat(document.getElementById('stakeInput').value);
+  const odd = parseFloat(document.getElementById('oddInput').value);
+  const jogo = document.getElementById('jogoInput').value.trim() || 'Jogo sem nome';
+  if(!stake || !odd || stake<=0 || odd<=1){ alert('Stake e Odd inválidos'); return; }
+  const profit = result==='green' ? stake*odd - stake : -stake;
+  bets.unshift({ id: Date.now(), jogo, stake, odd, result, profit, date: new Date().toLocaleTimeString('pt-PT',{hour:'2-digit',minute:'2-digit'}) });
+  save(); render();
+  document.getElementById('jogoInput').value='';
+  if(navigator.vibrate) navigator.vibrate(result==='green'?[30,40,30]:[80]);
+}
+
+function clearAll(){ if(confirm('Limpar histórico?')){ bets=[]; save(); render(); } }
+
+render();
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('/sw.js'); }
+</script>
+</body>
+</html>

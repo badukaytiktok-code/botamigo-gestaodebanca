@@ -1,0 +1,24 @@
+{
+  "name": "botamigo-gestaodebanca",
+  "version": "1.0.0",
+  "description": "BOT AMIGO GREENS - Gestor de Banca Pro",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx http-server -p 3000",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/badukaytiktok-code/botamigo-gestaodebanca.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/badukaytiktok-code/botamigo-gestaodebanca/issues"
+  },
+  "homepage": "https://github.com/badukaytiktok-code/botamigo-gestaodebanca#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
